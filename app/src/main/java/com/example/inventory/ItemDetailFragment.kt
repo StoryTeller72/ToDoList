@@ -61,7 +61,7 @@ class ItemDetailFragment : Fragment() {
         binding.apply {
             itemName.text = item.itemName
             if(item.itemIsImportant) binding.itemName.setTextColor(Color.RED)
-            sellItem.setOnClickListener { viewModel.deleteItem(item) }
+            sellItem.setOnClickListener { deleteItem() }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }
         }
