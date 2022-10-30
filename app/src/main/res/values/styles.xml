@@ -18,7 +18,7 @@
 
     <style name="Widget.Inventory.ListItemTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
     </style>
 

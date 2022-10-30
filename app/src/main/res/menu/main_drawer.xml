@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group >
+        <item android:title="@string/year"
+            android:id="@+id/item_year" />
+
+        <item android:title="@string/month"
+            android:id="@+id/item_month"/>
+
+        <item android:title="@string/week"
+            android:id="@+id/item_week"/>
+
+        <item android:title="@string/day"
+            android:id="@+id/item_day"/>
+    </group>
+</menu>
