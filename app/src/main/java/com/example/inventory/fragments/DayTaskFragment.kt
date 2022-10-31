@@ -61,7 +61,7 @@ class DayTaskFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         // Attach an observer on the allItems list to update the UI automatically when the data
         // changes.
-        viewModel.allItems.observe(this.viewLifecycleOwner) { items ->
+        viewModel.itemsForDay.observe(this.viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }
@@ -69,7 +69,7 @@ class DayTaskFragment : Fragment() {
 
         binding.floatingActionButton.setOnClickListener {
             val action = DayTaskFragmentDirections.actionItemListFragmentToAddItemFragment(
-                getString(R.string.add_fragment_title)
+                getString(R.string.from_day)
             )
             this.findNavController().navigate(action)
         }

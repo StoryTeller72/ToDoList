@@ -17,6 +17,7 @@ package com.example.inventory.fragments
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.inventory.InventoryApplication
-import com.example.inventory.InventoryViewModel
-import com.example.inventory.InventoryViewModelFactory
+import com.example.inventory.*
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentAddItemBinding
 
@@ -46,6 +45,7 @@ class AddItemFragment : Fragment() {
         )
     }
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
+    private val navigationArgsFrom: AddItemFragmentArgs by navArgs()
 
     lateinit var item: Item
 
@@ -79,8 +79,18 @@ class AddItemFragment : Fragment() {
     private fun bind(item: Item) {
         binding.apply {
             itemName.setText(item.itemName, TextView.BufferType.SPANNABLE)
-            if(item.itemIsImportant) checkboxImportance.isChecked = true
+            when(item.itemPriority){
+                Constance.HIGH_PRIORITY -> binding.importanceGroup.check(R.id.high_priority)
+                Constance.MIDL_PRIORITY -> binding.importanceGroup.check(R.id.middle_priority)
+                else -> binding.importanceGroup.check(R.id.low_priority)
+            }
             saveAction.setOnClickListener { updateItem() }
+            when(item.itemDuration){
+                Constance.YEAR -> binding.durationGroup.check(R.id.year)
+                Constance.MONTH -> binding.durationGroup.check(R.id.month)
+                Constance.WEEK -> binding.durationGroup.check(R.id.month)
+                else -> binding.durationGroup.check(R.id.day)
+            }
         }
     }
 
@@ -91,10 +101,40 @@ class AddItemFragment : Fragment() {
         if (isEntryValid()) {
             viewModel.addNewItem(
                 binding.itemName.text.toString(),
-                binding.checkboxImportance.isChecked
+                when(binding.importanceGroup.checkedRadioButtonId){
+                    R.id.high_priority -> Constance.HIGH_PRIORITY
+                    R.id.middle_priority -> Constance.MIDL_PRIORITY
+                    else -> Constance.LOW_PRIORITY
+                },
+                when(binding.durationGroup.checkedRadioButtonId){
+                    R.id.year -> Constance.YEAR
+                    R.id.month -> Constance.MONTH
+                    R.id.week -> Constance.WEEK
+                    else -> Constance.DAY
+                }
             )
-            val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
-            findNavController().navigate(action)
+
+            when(navigationArgsFrom.title){
+                getString(R.string.from_day) ->  {
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
+                    findNavController().navigate(action)
+                }
+
+                getString(R.string.from_week) ->{
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemWeek()
+                    findNavController().navigate(action)
+                }
+
+                getString(R.string.from_month)->{
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemMonth()
+                    findNavController().navigate(action)
+                }
+
+                getString(R.string.from_year)->{
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemYear()
+                    findNavController().navigate(action)
+                }
+            }
         }
     }
 
@@ -106,10 +146,40 @@ class AddItemFragment : Fragment() {
             viewModel.updateItem(
                 this.navigationArgs.itemId,
                 this.binding.itemName.text.toString(),
-                this.binding.checkboxImportance.isChecked
+                when(this.binding.importanceGroup.checkedRadioButtonId){
+                    R.id.high_priority -> Constance.HIGH_PRIORITY
+                    R.id.middle_priority -> Constance.MIDL_PRIORITY
+                    else -> Constance.LOW_PRIORITY
+                },
+                when(this.binding.durationGroup.checkedRadioButtonId){
+                    R.id.year -> Constance.YEAR
+                    R.id.month -> Constance.MONTH
+                    R.id.week -> Constance.WEEK
+                    else -> Constance.DAY
+                }
             )
-            val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
-            findNavController().navigate(action)
+            when(navigationArgsFrom.title){
+                getString(R.string.from_day) ->  {
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
+                    findNavController().navigate(action)
+                }
+
+                getString(R.string.from_week) ->{
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemWeek()
+                    findNavController().navigate(action)
+                }
+
+                getString(R.string.from_month)->{
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemMonth()
+                    findNavController().navigate(action)
+                }
+
+                getString(R.string.from_year)->{
+                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemYear()
+                    findNavController().navigate(action)
+                }
+            }
+
         }
     }
 
@@ -121,6 +191,24 @@ class AddItemFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        when(navigationArgsFrom.title){
+            getString(R.string.from_day) ->  {
+               binding.durationGroup.check(R.id.day)
+            }
+
+            getString(R.string.from_week) ->{
+                binding.durationGroup.check(R.id.week)
+            }
+
+            getString(R.string.from_month)->{
+                binding.durationGroup.check(R.id.month)
+            }
+
+            getString(R.string.from_year)->{
+                binding.durationGroup.check(R.id.year)
+            }
+        }
 
         val id = navigationArgs.itemId
         if (id > 0) {

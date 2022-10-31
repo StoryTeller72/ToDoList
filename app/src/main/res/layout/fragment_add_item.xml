@@ -42,12 +42,99 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-       <CheckBox
-           android:id="@+id/checkbox_importance"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           app:layout_constraintTop_toBottomOf="@id/item_name_label"
-           android:text="@string/is_task_important"/>
+        <TextView
+            android:id="@+id/tv_headerForPriority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:gravity="center"
+            android:text="@string/select_priority"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintTop_toBottomOf="@id/item_name_label" />
+
+        <RadioGroup
+            android:id="@+id/importance_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/low_priority"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_headerForPriority">
+
+            <RadioButton
+                android:id="@+id/high_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:text="@string/high_priority" />
+
+            <RadioButton
+                android:id="@+id/middle_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:text="@string/middle" />
+
+            <RadioButton
+                android:id="@+id/low_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="33"
+                android:text="@string/low" />
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/select_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            app:layout_constraintTop_toBottomOf="@id/importance_group"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size"
+            android:text="@string/select_task_duration"
+            android:gravity="center"/>
+
+        <RadioGroup
+            android:id="@+id/duration_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/select_duration"
+            android:orientation="horizontal"
+            android:checkedButton="@id/day">
+
+            <RadioButton
+                android:id="@+id/year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/year_btn"
+                android:layout_weight="25"/>
+
+            <RadioButton
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/month_btn"
+                android:layout_weight="25"/>
+
+            <RadioButton
+                android:id="@+id/week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/week_btn"
+                android:layout_weight="25"/>
+            <RadioButton
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/day_btn"
+                android:layout_weight="25"/>
+        </RadioGroup>
 
         <Button
             android:id="@+id/save_action"
@@ -57,7 +144,7 @@
             android:text="@string/save_action"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkbox_importance" />
+            app:layout_constraintTop_toBottomOf="@+id/duration_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

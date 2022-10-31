@@ -16,30 +16,27 @@
 
 package com.example.inventory
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.inventory.data.Item
 import com.example.inventory.data.ItemDao
 import kotlinx.coroutines.launch
 
-/**
- * View Model to keep a reference to the Inventory repository and an up-to-date list of all items.
- *
- */
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
     // Cache all items form the database using LiveData.
     val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
+    val itemsForDay: LiveData<List<Item>> = itemDao.getItemsForDay().asLiveData()
+    val itemsForWeek: LiveData<List<Item>> = itemDao.getItemsForWeek().asLiveData()
+    val itemsForMonth: LiveData<List<Item>> = itemDao.getItemsForMonth().asLiveData()
+    val itemsForYear: LiveData<List<Item>> = itemDao.getItemsForYear().asLiveData()
 
     fun updateItem(
         itemId: Int,
         itemName: String,
-        itemImportance: Boolean
+        itemPriority: String,
+        itemDuration: String
     ) {
-        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemImportance)
+        val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPriority, itemDuration)
         updateItem(updatedItem)
     }
 
@@ -58,8 +55,8 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemImportance: Boolean) {
-        val newItem = getNewItemEntry(itemName, itemImportance)
+    fun addNewItem(itemName: String, itemPriority: String, itemDuration: String) {
+        val newItem = getNewItemEntry(itemName, itemPriority, itemDuration)
         insertItem(newItem)
     }
 
@@ -102,10 +99,11 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemImportance: Boolean): Item {
+    private fun getNewItemEntry(itemName: String, itemPriority: String, itemDuration: String): Item {
         return Item(
             itemName = itemName,
-            itemIsImportant = itemImportance
+            itemPriority = itemPriority,
+            itemDuration = itemDuration
         )
     }
 
@@ -116,12 +114,15 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     private fun getUpdatedItemEntry(
         itemId: Int,
         itemName: String,
-        itemImportance: Boolean
+        itemPriority: String,
+        itemDuration: String
+
     ): Item {
         return Item(
             id = itemId,
             itemName = itemName,
-            itemIsImportant = itemImportance
+            itemPriority = itemPriority,
+            itemDuration = itemDuration
         )
     }
 }

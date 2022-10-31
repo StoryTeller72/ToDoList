@@ -54,7 +54,11 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
 
         fun bind(item: Item) {
             binding.itemNameRecylerView.text = item.itemName
-            if(item.itemIsImportant) binding.itemNameRecylerView.setTextColor(Color.RED)
+            when(item.itemPriority){
+                Constance.HIGH_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.RED)
+                Constance.MIDL_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.YELLOW)
+                else -> binding.cardView.setCardBackgroundColor(Color.GRAY)
+            }
         }
     }
 

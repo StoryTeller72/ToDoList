@@ -30,5 +30,7 @@ data class Item(
     @ColumnInfo(name = "name")
     val itemName: String,
     @ColumnInfo(name = "importance")
-    val itemIsImportant: Boolean = false,
+    val itemPriority: String,
+    @ColumnInfo(name = "duration")
+    val itemDuration: String
 )

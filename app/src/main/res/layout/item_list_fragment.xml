@@ -22,34 +22,37 @@
     android:layout_margin="@dimen/margin"
     tools:context=".fragments.DayTaskFragment">
 
-    <TextView
-        android:id="@+id/item_name"
-        style="@style/Widget.Inventory.Header"
-        android:layout_marginStart="@dimen/margin_between_elements"
-        android:text="@string/tasks_for_today"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"/>
+<!--    <TextView-->
+<!--        android:id="@+id/item_name"-->
+<!--        style="@style/Widget.Inventory.Header"-->
+<!--        android:layout_marginStart="@dimen/margin_between_elements"-->
+<!--        android:text="@string/tasks_for_today"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:gravity="center"/>-->
 
 
-    <View
-        android:id="@+id/divider"
-        style="@style/Divider"
-        android:layout_marginTop="@dimen/margin_between_elements"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_name" />
+<!--    <View-->
+<!--        android:id="@+id/divider"-->
+<!--        style="@style/Divider"-->
+<!--        android:layout_marginTop="@dimen/margin_between_elements"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/recyclerView"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/item_name" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_list_item"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"

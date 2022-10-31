@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 <resources>
-    <string name="app_name">Task list</string>
+    <string name="app_name">Tasks for day</string>
     <string name="sell">Sell</string>
     <string name="quantity">Quantity in Stock:</string>
     <string name="quantity_req">Quantity in Stock <font color='#FF0000'>*</font></string>
@@ -43,4 +43,20 @@
     <string name="day">Day</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="high_priority">High</string>
+    <string name="middle">Middle</string>
+    <string name="low">Low</string>
+    <string name="select_priority">Select task priority</string>
+    <string name="select_task_duration">Select task duration</string>
+    <string name="year_btn">Year</string>
+    <string name="month_btn">Month</string>
+    <string name="week_btn">Week</string>
+    <string name="day_btn">Day</string>
+    <string name="from_day">FromDayTask</string>
+    <string name="from_week">FromWeekTask</string>
+    <string name="from_month">FromMonthTask</string>
+    <string name="from_year">FromYearTask</string>
+    <string name="header_week">Tasks for week</string>
+    <string name="header_month">Tasks for month</string>
+    <string name="header_year">Tasks for year</string>
 </resources>

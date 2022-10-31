@@ -25,10 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.inventory.InventoryApplication
-import com.example.inventory.InventoryViewModel
-import com.example.inventory.InventoryViewModelFactory
-import com.example.inventory.R
+import com.example.inventory.*
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -64,7 +61,12 @@ class ItemDetailFragment : Fragment() {
     private fun bind(item: Item) {
         binding.apply {
             itemName.text = item.itemName
-            if(item.itemIsImportant) binding.itemName.setTextColor(Color.RED)
+            when (item.itemPriority) {
+                Constance.HIGH_PRIORITY -> binding.itemName.setTextColor(Color.RED)
+                Constance.MIDL_PRIORITY -> binding.itemName.setTextColor(Color.YELLOW)
+                else -> binding.itemName.setTextColor(Color.GRAY)
+            }
+            binding.duration.text = item.itemDuration
             sellItem.setOnClickListener { deleteItem() }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }

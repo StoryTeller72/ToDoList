@@ -60,20 +60,50 @@
             app:destination="@id/item_day"
             app:popUpTo="@id/item_day"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_addItemFragment_to_item_week"
+            app:destination="@id/item_week" />
+        <action
+            android:id="@+id/action_addItemFragment_to_item_month"
+            app:destination="@id/item_month" />
+        <action
+            android:id="@+id/action_addItemFragment_to_item_year"
+            app:destination="@id/item_year" />
     </fragment>
     <fragment
         android:id="@+id/item_week"
         android:name="com.example.inventory.fragments.WeekTaskFragment"
-        android:label="fragment_week_task"
-        tools:layout="@layout/fragment_week_task" />
+        android:label="@string/header_week"
+        tools:layout="@layout/item_list_fragment" >
+        <action
+            android:id="@+id/action_item_week_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+        <action
+            android:id="@+id/action_item_week_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/item_month"
         android:name="com.example.inventory.fragments.MonthTaskFragment"
-        android:label="fragment_month_task"
-        tools:layout="@layout/fragment_month_task" />
+        android:label="@string/header_month"
+        tools:layout="@layout/item_list_fragment" >
+        <action
+            android:id="@+id/action_item_month_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+        <action
+            android:id="@+id/action_item_month_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
     <fragment
         android:id="@+id/item_year"
         android:name="com.example.inventory.fragments.YearTaskFragment"
-        android:label="fragment_year_task"
-        tools:layout="@layout/fragment_year_task" />
+        android:label="@string/header_year"
+        tools:layout="@layout/item_list_fragment" >
+        <action
+            android:id="@+id/action_item_year_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+        <action
+            android:id="@+id/action_item_year_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+    </fragment>
 </navigation>
