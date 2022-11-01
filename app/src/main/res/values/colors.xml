@@ -22,4 +22,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red_700">#FFD32F2F</color>
+
+
+    <color name="dark_gray">#37474f</color>
+    <color name="very_dark_gray">#102027</color>
+    <color name="light_gray">#62727b</color>
 </resources>

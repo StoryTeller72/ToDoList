@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.*
@@ -98,43 +99,35 @@ class AddItemFragment : Fragment() {
      * Inserts the new Item into database and navigates up to list fragment.
      */
     private fun addNewItem() {
+        val action: NavDirections
         if (isEntryValid()) {
             viewModel.addNewItem(
-                binding.itemName.text.toString(),
+                binding.itemName.text.toString().trimStart(),
                 when(binding.importanceGroup.checkedRadioButtonId){
                     R.id.high_priority -> Constance.HIGH_PRIORITY
                     R.id.middle_priority -> Constance.MIDL_PRIORITY
                     else -> Constance.LOW_PRIORITY
                 },
                 when(binding.durationGroup.checkedRadioButtonId){
-                    R.id.year -> Constance.YEAR
-                    R.id.month -> Constance.MONTH
-                    R.id.week -> Constance.WEEK
-                    else -> Constance.DAY
+                    R.id.year -> {
+                        action = AddItemFragmentDirections.actionAddItemFragmentToItemYear()
+                        Constance.YEAR
+                    }
+                    R.id.month -> {
+                        action = AddItemFragmentDirections.actionAddItemFragmentToItemMonth()
+                        Constance.MONTH
+                    }
+                    R.id.week -> {
+                        action = AddItemFragmentDirections.actionAddItemFragmentToItemWeek()
+                        Constance.WEEK
+                    }
+                    else -> {
+                        action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
+                        Constance.DAY
+                    }
                 }
             )
-
-            when(navigationArgsFrom.title){
-                getString(R.string.from_day) ->  {
-                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemListFragment()
-                    findNavController().navigate(action)
-                }
-
-                getString(R.string.from_week) ->{
-                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemWeek()
-                    findNavController().navigate(action)
-                }
-
-                getString(R.string.from_month)->{
-                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemMonth()
-                    findNavController().navigate(action)
-                }
-
-                getString(R.string.from_year)->{
-                    val action = AddItemFragmentDirections.actionAddItemFragmentToItemYear()
-                    findNavController().navigate(action)
-                }
-            }
+            findNavController().navigate(action)
         }
     }
 
