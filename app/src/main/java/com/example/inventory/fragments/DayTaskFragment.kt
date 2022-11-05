@@ -17,15 +17,15 @@
 package com.example.inventory.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inventory.*
 import com.example.inventory.databinding.ItemListFragmentBinding
+import java.time.Duration
 
 /**
  * Main fragment displaying details for all items in the database.
@@ -39,6 +39,11 @@ class DayTaskFragment : Fragment() {
 
     private var _binding: ItemListFragmentBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,5 +78,28 @@ class DayTaskFragment : Fragment() {
             )
             this.findNavController().navigate(action)
         }
+    }
+
+    @Deprecated("Deprecated in Java", ReplaceWith(
+        "activity?.menuInflater?.inflate(R.menu.main_menu, menu)",
+        "com.example.inventory.R"
+    )
+    )
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.main_menu, menu)
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+      return when(item.itemId){
+          R.id.allTasks -> {
+              true
+          }
+          R.id.completed -> true
+          R.id.uncomplited -> true
+          R.id.sort_by_alphabet -> true
+          R.id.sort_by_importance -> true
+          else ->   return super.onOptionsItemSelected(item)
+      }
     }
 }

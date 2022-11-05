@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
     // Cache all items form the database using LiveData.
-    val allItems: LiveData<List<Item>> = itemDao.getItems().asLiveData()
     val itemsForDay: LiveData<List<Item>> = itemDao.getItemsForDay().asLiveData()
     val itemsForWeek: LiveData<List<Item>> = itemDao.getItemsForWeek().asLiveData()
     val itemsForMonth: LiveData<List<Item>> = itemDao.getItemsForMonth().asLiveData()

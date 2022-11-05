@@ -59,4 +59,9 @@
     <string name="header_week">Tasks for week</string>
     <string name="header_month">Tasks for month</string>
     <string name="header_year">Tasks for year</string>
+    <string name="all_tasks">All tasks</string>
+    <string name="uncompleted_task">Not completed</string>
+    <string name="completed">Completed</string>
+    <string name="sort_alphabetically">Sort alphabetically</string>
+    <string name="sort_by_importance">Sort by importance</string>
 </resources>

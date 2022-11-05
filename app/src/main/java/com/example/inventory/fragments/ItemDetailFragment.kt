@@ -29,11 +29,13 @@ import com.example.inventory.*
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.text.SimpleDateFormat
 
 /**
  * [ItemDetailFragment] displays the details of the selected item.
  */
 class ItemDetailFragment : Fragment() {
+
     private val navigationArgs: ItemDetailFragmentArgs by navArgs()
     lateinit var item: Item
 
@@ -62,11 +64,17 @@ class ItemDetailFragment : Fragment() {
         binding.apply {
             itemName.text = item.itemName
             when (item.itemPriority) {
-                Constance.HIGH_PRIORITY -> binding.itemName.setTextColor(Color.RED)
-                Constance.MIDL_PRIORITY -> binding.itemName.setTextColor(Color.YELLOW)
-                else -> binding.itemName.setTextColor(Color.GRAY)
+                Constance.HIGH_PRIORITY -> binding.itemName.setTextColor(Color.parseColor("#dd2c00"))
+                Constance.MIDL_PRIORITY -> binding.itemName.setTextColor(Color.parseColor("#ef6c00"))
+                else -> binding.itemName.setTextColor(Color.parseColor("#62727b"))
             }
-            binding.duration.text = item.itemDuration
+            when(item.itemDuration){
+                Constance.DAY -> binding.duration.text = "Task for day"
+                Constance.WEEK -> binding.duration.text = "Task for week"
+                Constance.MONTH -> binding.duration.text = "Task for month"
+                else -> binding.duration.text = " Task for year"
+            }
+//            binding.duration.text = item.itemDuration
             sellItem.setOnClickListener { deleteItem() }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }

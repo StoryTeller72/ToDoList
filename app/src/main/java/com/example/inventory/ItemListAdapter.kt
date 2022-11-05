@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.ItemListItemBinding
+import kotlin.coroutines.coroutineContext
 
 /**
  * [ListAdapter] implementation for the recyclerview.
@@ -33,10 +34,7 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(
-            ItemListItemBinding.inflate(
-                LayoutInflater.from(
-                    parent.context
-                )
+            ItemListItemBinding.inflate(LayoutInflater.from(parent.context), parent,false
             )
         )
     }
@@ -55,9 +53,9 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         fun bind(item: Item) {
             binding.itemNameRecylerView.text = item.itemName
             when(item.itemPriority){
-                Constance.HIGH_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.RED)
-                Constance.MIDL_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.YELLOW)
-                else -> binding.cardView.setCardBackgroundColor(Color.GRAY)
+                Constance.HIGH_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.parseColor("#dd2c00"))
+                Constance.MIDL_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.parseColor("#fbc02d"))
+                else -> binding.cardView.setCardBackgroundColor(Color.parseColor("#388e3c"))
             }
         }
     }

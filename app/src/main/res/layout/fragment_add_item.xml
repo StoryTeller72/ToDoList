@@ -49,7 +49,6 @@
             android:layout_margin="@dimen/margin"
             android:gravity="center"
             android:text="@string/select_priority"
-            android:textColor="@color/black"
             android:textSize="@dimen/text_size"
             app:layout_constraintTop_toBottomOf="@id/item_name_label" />
 
@@ -95,7 +94,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
-            android:textColor="@color/black"
+
             android:textSize="@dimen/text_size"
             android:text="@string/select_task_duration"
             android:gravity="center"/>

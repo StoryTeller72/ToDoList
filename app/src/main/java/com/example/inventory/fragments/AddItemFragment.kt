@@ -19,10 +19,12 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
@@ -129,6 +131,9 @@ class AddItemFragment : Fragment() {
             )
             findNavController().navigate(action)
         }
+        else{
+            Toast.makeText(activity, "You could not add empty task", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
@@ -173,6 +178,9 @@ class AddItemFragment : Fragment() {
                 }
             }
 
+        }
+        else{
+            Toast.makeText(activity, "You could not add empty task", Toast.LENGTH_LONG).show()
         }
     }
 

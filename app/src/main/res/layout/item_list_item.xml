@@ -27,15 +27,17 @@
             android:layout_margin="2dp">
 
             <TextView
+                android:gravity="center"
                 android:id="@+id/item_name_recylerView"
                 style="@style/Widget.Inventory.ListItemTextView"
-                android:layout_width="385dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:padding="4dp"
                 android:textSize="@dimen/text_size"
                 tools:text="Cogs and Widgets" />
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 

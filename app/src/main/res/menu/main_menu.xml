@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="@string/all_tasks"
+        android:id="@+id/allTasks"/>
+
+
+    <item
+        android:title="@string/completed"
+        android:id="@+id/completed" />
+
+    <item
+        android:title="@string/uncompleted_task"
+        android:id="@+id/uncomplited" />
+
+    <item
+        android:title="@string/sort_alphabetically"
+        android:id="@+id/sort_by_alphabet"/>
+    <item
+        android:title="@string/sort_by_importance"
+        android:id="@+id/sort_by_importance"/>
+
+</menu>
