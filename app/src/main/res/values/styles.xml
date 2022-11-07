@@ -52,4 +52,5 @@
         <item name="helperTextTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle1
         </item>
     </style>
+
 </resources>

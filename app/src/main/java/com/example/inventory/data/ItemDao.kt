@@ -36,7 +36,7 @@ interface ItemDao {
     @Query("SELECT * from item WHERE id = :id")
     fun getItem(id: Int): Flow<Item>
 
-    @Query("SELECT * from item WHERE duration = 'day' ")
+    @Query("SELECT * from item WHERE duration = 'day' AND isDone = '0'")
     fun getItemsForDay(): Flow<List<Item>>
 
     @Query("SELECT * from item WHERE duration = 'week' ")
@@ -47,6 +47,9 @@ interface ItemDao {
 
     @Query("SELECT * from item WHERE duration = 'year' ")
     fun getItemsForYear(): Flow<List<Item>>
+
+    @Query("SELECT * from item WHERE isDone = '1' AND duration = 'day' ")
+    fun getDoneItemsForDay(): Flow<List<Item>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(item: Item)

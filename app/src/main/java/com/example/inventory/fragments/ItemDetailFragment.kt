@@ -66,7 +66,7 @@ class ItemDetailFragment : Fragment() {
             when (item.itemPriority) {
                 Constance.HIGH_PRIORITY -> binding.itemName.setTextColor(Color.parseColor("#dd2c00"))
                 Constance.MIDL_PRIORITY -> binding.itemName.setTextColor(Color.parseColor("#ef6c00"))
-                else -> binding.itemName.setTextColor(Color.parseColor("#62727b"))
+                else -> binding.itemName.setTextColor(Color.parseColor("#388e3c"))
             }
             when(item.itemDuration){
                 Constance.DAY -> binding.duration.text = "Task for day"
@@ -75,7 +75,7 @@ class ItemDetailFragment : Fragment() {
                 else -> binding.duration.text = " Task for year"
             }
 //            binding.duration.text = item.itemDuration
-            sellItem.setOnClickListener { deleteItem() }
+            taskDone.setOnClickListener { itemDone() }
             deleteItem.setOnClickListener { showConfirmationDialog() }
             editItem.setOnClickListener { editItem() }
         }
@@ -107,6 +107,10 @@ class ItemDetailFragment : Fragment() {
             .show()
     }
 
+    private fun itemDone(){
+        viewModel.itemDone(item)
+        findNavController().navigateUp()
+    }
     /**
      * Deletes the current item and navigates to the list fragment.
      */

@@ -57,6 +57,9 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
                 Constance.MIDL_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.parseColor("#fbc02d"))
                 else -> binding.cardView.setCardBackgroundColor(Color.parseColor("#388e3c"))
             }
+            if(item.itemDone){
+                binding.cardView.setCardBackgroundColor(Color.parseColor("#62727b"))
+            }
         }
     }
 

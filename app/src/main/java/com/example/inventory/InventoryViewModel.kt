@@ -25,6 +25,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
     // Cache all items form the database using LiveData.
     val itemsForDay: LiveData<List<Item>> = itemDao.getItemsForDay().asLiveData()
+    val doneItemsForDay: LiveData<List<Item>> = itemDao.getDoneItemsForDay().asLiveData()
     val itemsForWeek: LiveData<List<Item>> = itemDao.getItemsForWeek().asLiveData()
     val itemsForMonth: LiveData<List<Item>> = itemDao.getItemsForMonth().asLiveData()
     val itemsForYear: LiveData<List<Item>> = itemDao.getItemsForYear().asLiveData()
@@ -39,17 +40,16 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
         updateItem(updatedItem)
     }
 
-
-    /**
-     * Launching a new coroutine to update an item in a non-blocking way
-     */
     private fun updateItem(item: Item) {
         viewModelScope.launch {
             itemDao.update(item)
         }
     }
 
-
+    fun itemDone(item: Item){
+        val doneItem = item.copy(itemDone = true)
+        updateItem(doneItem)
+    }
 
     /**
      * Inserts the new Item into database.

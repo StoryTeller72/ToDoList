@@ -95,11 +95,30 @@ class DayTaskFragment : Fragment() {
           R.id.allTasks -> {
               true
           }
-          R.id.completed -> true
+          R.id.completed -> {
+              showDoneTasks()
+              true
+          }
           R.id.uncomplited -> true
           R.id.sort_by_alphabet -> true
           R.id.sort_by_importance -> true
           else ->   return super.onOptionsItemSelected(item)
       }
+    }
+
+    private fun showDoneTasks(){
+        val adapter = ItemListAdapter {
+            val action =
+                DayTaskFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            this.findNavController().navigate(action)
+        }
+        binding.recyclerView.adapter = adapter
+        // Attach an observer on the allItems list to update the UI automatically when the data
+        // changes.
+        viewModel.doneItemsForDay.observe(this.viewLifecycleOwner) { items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
     }
 }
