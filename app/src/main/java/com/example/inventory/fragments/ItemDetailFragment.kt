@@ -26,10 +26,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.inventory.*
+import com.example.inventory.Importance
 import com.example.inventory.data.Item
 import com.example.inventory.databinding.FragmentItemDetailBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.text.SimpleDateFormat
 
 /**
  * [ItemDetailFragment] displays the details of the selected item.
@@ -64,8 +64,8 @@ class ItemDetailFragment : Fragment() {
         binding.apply {
             itemName.text = item.itemName
             when (item.itemPriority) {
-                Constance.HIGH_PRIORITY -> binding.itemName.setTextColor(Color.parseColor("#dd2c00"))
-                Constance.MIDL_PRIORITY -> binding.itemName.setTextColor(Color.parseColor("#ef6c00"))
+                Importance.high.value -> binding.itemName.setTextColor(Color.parseColor("#dd2c00"))
+                Importance.medium.value -> binding.itemName.setTextColor(Color.parseColor("#ef6c00"))
                 else -> binding.itemName.setTextColor(Color.parseColor("#388e3c"))
             }
             when(item.itemDuration){

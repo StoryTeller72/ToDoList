@@ -56,22 +56,7 @@ class DayTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val adapter = ItemListAdapter {
-            val action =
-                DayTaskFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
-            this.findNavController().navigate(action)
-        }
-        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
-        binding.recyclerView.adapter = adapter
-        // Attach an observer on the allItems list to update the UI automatically when the data
-        // changes.
-        viewModel.itemsForDay.observe(this.viewLifecycleOwner) { items ->
-            items.let {
-                adapter.submitList(it)
-            }
-        }
-
+        showAllTasks()
         binding.floatingActionButton.setOnClickListener {
             val action = DayTaskFragmentDirections.actionItemListFragmentToAddItemFragment(
                 getString(R.string.from_day)
@@ -92,18 +77,45 @@ class DayTaskFragment : Fragment() {
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
       return when(item.itemId){
-          R.id.allTasks -> {
+          R.id.allTasksDay ->{
+              showAllTasks()
+              true
+          }
+          R.id.onlyImportant -> {
+              showOnlyImportanceTasks()
               true
           }
           R.id.completed -> {
               showDoneTasks()
               true
           }
-          R.id.uncomplited -> true
-          R.id.sort_by_alphabet -> true
-          R.id.sort_by_importance -> true
+          R.id.uncomplited -> {
+              showUnDoneTasks()
+              true
+          }
+          R.id.sort_by_importance -> {
+              showSortedByImportance()
+              true
+          }
           else ->   return super.onOptionsItemSelected(item)
       }
+    }
+
+    private fun showAllTasks(){
+        val adapter = ItemListAdapter {
+            val action =
+                DayTaskFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            this.findNavController().navigate(action)
+        }
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.context)
+        binding.recyclerView.adapter = adapter
+        // Attach an observer on the allItems list to update the UI automatically when the data
+        // changes.
+        viewModel.itemsForDay.observe(this.viewLifecycleOwner) { items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
     }
 
     private fun showDoneTasks(){
@@ -116,6 +128,48 @@ class DayTaskFragment : Fragment() {
         // Attach an observer on the allItems list to update the UI automatically when the data
         // changes.
         viewModel.doneItemsForDay.observe(this.viewLifecycleOwner) { items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    private fun showUnDoneTasks(){
+        val adapter = ItemListAdapter {
+            val action =
+                DayTaskFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            this.findNavController().navigate(action)
+        }
+        binding.recyclerView.adapter = adapter
+        viewModel.unDoneItemsForDay.observe(this.viewLifecycleOwner) { items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    private fun showOnlyImportanceTasks(){
+        val adapter = ItemListAdapter {
+            val action =
+                DayTaskFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            this.findNavController().navigate(action)
+        }
+        binding.recyclerView.adapter = adapter
+        viewModel.onlyImportantItemsForDay.observe(this.viewLifecycleOwner) { items ->
+            items.let {
+                adapter.submitList(it)
+            }
+        }
+    }
+
+    private fun showSortedByImportance(){
+        val adapter = ItemListAdapter {
+            val action =
+                DayTaskFragmentDirections.actionItemListFragmentToItemDetailFragment(it.id)
+            this.findNavController().navigate(action)
+        }
+        binding.recyclerView.adapter = adapter
+        viewModel.allDaySorted.observe(this.viewLifecycleOwner) { items ->
             items.let {
                 adapter.submitList(it)
             }

@@ -17,9 +17,8 @@ package com.example.inventory.fragments
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
-import android.util.Log
+import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -83,8 +82,8 @@ class AddItemFragment : Fragment() {
         binding.apply {
             itemName.setText(item.itemName, TextView.BufferType.SPANNABLE)
             when(item.itemPriority){
-                Constance.HIGH_PRIORITY -> binding.importanceGroup.check(R.id.high_priority)
-                Constance.MIDL_PRIORITY -> binding.importanceGroup.check(R.id.middle_priority)
+                Importance.high.value -> binding.importanceGroup.check(R.id.high_priority)
+                Importance.medium.value -> binding.importanceGroup.check(R.id.middle_priority)
                 else -> binding.importanceGroup.check(R.id.low_priority)
             }
             saveAction.setOnClickListener { updateItem() }
@@ -106,9 +105,9 @@ class AddItemFragment : Fragment() {
             viewModel.addNewItem(
                 binding.itemName.text.toString().trimStart(),
                 when(binding.importanceGroup.checkedRadioButtonId){
-                    R.id.high_priority -> Constance.HIGH_PRIORITY
-                    R.id.middle_priority -> Constance.MIDL_PRIORITY
-                    else -> Constance.LOW_PRIORITY
+                    R.id.high_priority -> Importance.high.value
+                    R.id.middle_priority -> Importance.medium.value
+                    else -> Importance.low.value
                 },
                 when(binding.durationGroup.checkedRadioButtonId){
                     R.id.year -> {
@@ -145,9 +144,9 @@ class AddItemFragment : Fragment() {
                 this.navigationArgs.itemId,
                 this.binding.itemName.text.toString(),
                 when(this.binding.importanceGroup.checkedRadioButtonId){
-                    R.id.high_priority -> Constance.HIGH_PRIORITY
-                    R.id.middle_priority -> Constance.MIDL_PRIORITY
-                    else -> Constance.LOW_PRIORITY
+                    R.id.high_priority -> Importance.high.value
+                    R.id.middle_priority -> Importance.medium.value
+                    else -> Importance.low.value
                 },
                 when(this.binding.durationGroup.checkedRadioButtonId){
                     R.id.year -> Constance.YEAR

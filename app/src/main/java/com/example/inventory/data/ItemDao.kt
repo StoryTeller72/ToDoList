@@ -15,6 +15,7 @@
  */
 package com.example.inventory.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -36,8 +37,21 @@ interface ItemDao {
     @Query("SELECT * from item WHERE id = :id")
     fun getItem(id: Int): Flow<Item>
 
-    @Query("SELECT * from item WHERE duration = 'day' AND isDone = '0'")
-    fun getItemsForDay(): Flow<List<Item>>
+    @Query("SELECT * from item WHERE duration = 'day' ORDER BY isDone ")
+    fun getAllItemsForDay(): Flow<List<Item>>
+
+    @Query("SELECT * from item WHERE isDone = '1' AND duration = 'day' ")
+    fun getDoneItemsForDay(): Flow<List<Item>>
+
+    @Query("SELECT * from item WHERE isDone = '0' AND duration = 'day' ")
+    fun getUnDoneItemsForDay(): Flow<List<Item>>
+
+    @Query("SELECT * from item WHERE importance = '1' AND duration = 'day' AND isDone = '0' ")
+    fun getOnlyImportanceItemsForDay(): Flow<List<Item>>
+
+    @Query("SELECT * from item WHERE duration = 'day' and isDone = '0' ORDER BY importance " )
+    fun getSortedByImportanceDay(): Flow<List<Item>>
+
 
     @Query("SELECT * from item WHERE duration = 'week' ")
     fun getItemsForWeek(): Flow<List<Item>>
@@ -48,8 +62,6 @@ interface ItemDao {
     @Query("SELECT * from item WHERE duration = 'year' ")
     fun getItemsForYear(): Flow<List<Item>>
 
-    @Query("SELECT * from item WHERE isDone = '1' AND duration = 'day' ")
-    fun getDoneItemsForDay(): Flow<List<Item>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(item: Item)

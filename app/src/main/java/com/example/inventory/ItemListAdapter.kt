@@ -16,6 +16,7 @@
 package com.example.inventory
 
 import android.graphics.Color
+import android.provider.ContactsContract.CommonDataKinds.Im
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -53,8 +54,8 @@ class ItemListAdapter(private val onItemClicked: (Item) -> Unit) :
         fun bind(item: Item) {
             binding.itemNameRecylerView.text = item.itemName
             when(item.itemPriority){
-                Constance.HIGH_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.parseColor("#dd2c00"))
-                Constance.MIDL_PRIORITY -> binding.cardView.setCardBackgroundColor(Color.parseColor("#fbc02d"))
+                Importance.high.value -> binding.cardView.setCardBackgroundColor(Color.parseColor("#dd2c00"))
+                Importance.medium.value -> binding.cardView.setCardBackgroundColor(Color.parseColor("#fbc02d"))
                 else -> binding.cardView.setCardBackgroundColor(Color.parseColor("#388e3c"))
             }
             if(item.itemDone){

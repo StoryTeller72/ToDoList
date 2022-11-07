@@ -24,8 +24,12 @@ import kotlinx.coroutines.launch
 class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
 
     // Cache all items form the database using LiveData.
-    val itemsForDay: LiveData<List<Item>> = itemDao.getItemsForDay().asLiveData()
+    val itemsForDay: LiveData<List<Item>> = itemDao.getAllItemsForDay().asLiveData()
     val doneItemsForDay: LiveData<List<Item>> = itemDao.getDoneItemsForDay().asLiveData()
+    val unDoneItemsForDay: LiveData<List<Item>> = itemDao.getUnDoneItemsForDay().asLiveData()
+    val onlyImportantItemsForDay: LiveData<List<Item>> = itemDao.getOnlyImportanceItemsForDay().asLiveData()
+    val allDaySorted: LiveData<List<Item>> = itemDao.getSortedByImportanceDay().asLiveData()
+
     val itemsForWeek: LiveData<List<Item>> = itemDao.getItemsForWeek().asLiveData()
     val itemsForMonth: LiveData<List<Item>> = itemDao.getItemsForMonth().asLiveData()
     val itemsForYear: LiveData<List<Item>> = itemDao.getItemsForYear().asLiveData()
@@ -33,7 +37,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     fun updateItem(
         itemId: Int,
         itemName: String,
-        itemPriority: String,
+        itemPriority: Int,
         itemDuration: String
     ) {
         val updatedItem = getUpdatedItemEntry(itemId, itemName, itemPriority, itemDuration)
@@ -54,7 +58,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     /**
      * Inserts the new Item into database.
      */
-    fun addNewItem(itemName: String, itemPriority: String, itemDuration: String) {
+    fun addNewItem(itemName: String, itemPriority: Int, itemDuration: String) {
         val newItem = getNewItemEntry(itemName, itemPriority, itemDuration)
         insertItem(newItem)
     }
@@ -98,7 +102,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
      * Returns an instance of the [Item] entity class with the item info entered by the user.
      * This will be used to add a new entry to the Inventory database.
      */
-    private fun getNewItemEntry(itemName: String, itemPriority: String, itemDuration: String): Item {
+    private fun getNewItemEntry(itemName: String, itemPriority: Int, itemDuration: String): Item {
         return Item(
             itemName = itemName,
             itemPriority = itemPriority,
@@ -113,7 +117,7 @@ class InventoryViewModel(private val itemDao: ItemDao) : ViewModel() {
     private fun getUpdatedItemEntry(
         itemId: Int,
         itemName: String,
-        itemPriority: String,
+        itemPriority: Int,
         itemDuration: String
 
     ): Item {
